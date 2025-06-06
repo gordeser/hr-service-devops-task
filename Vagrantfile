@@ -17,6 +17,8 @@ Vagrant.configure("2") do |config|
             vb.memory = "2048"
             vb.cpus = 2
         end
+
+        web.vm.provision "shell", path: "provision/web.sh"
     end
 
     config.vm.define "db" do |db|
@@ -28,6 +30,8 @@ Vagrant.configure("2") do |config|
             vb.memory = "1024"
             vb.cpus = 1
         end
+
+        db.vm.provision "shell", path: "provision/db.sh"
     end
 
     config.vm.define "app" do |app|
@@ -39,13 +43,7 @@ Vagrant.configure("2") do |config|
             vb.memory = "2048"
             vb.cpus = 2
         end
+
+        app.vm.provision "shell", path: "provision/app.sh"
     end
-
-    config.vm.provision "allow_guest_host_resolution",
-        type: "shell",
-        inline: <<-SHELL
-            apt update
-            apt install -y avahi-daemon libnss-mdns
-        SHELL
-
 end
