@@ -1,0 +1,21 @@
+log:
+  level: INFO
+  filePath: "/var/log/traefik/traefik.log"
+  format: "common"
+
+accessLog:
+  filePath: "/var/log/traefik/access.log"
+  bufferingSize: 100
+
+api:
+  insecure: true
+  dashboard: true
+
+entryPoints:
+  web:
+    address: ":80"
+
+providers:
+  file:
+    directory: "/etc/traefik/dynamic"
+    watch: true
